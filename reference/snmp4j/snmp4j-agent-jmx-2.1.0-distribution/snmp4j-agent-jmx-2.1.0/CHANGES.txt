@@ -1,0 +1,44 @@
+
+CHANGE LOG OF SNMP4J-AgentJMX
+=============================
+
+[2014-05-12] v2.1.0
+
+* Improved: Generics support (removed unchecked warnings and introduced missing
+  template parameters).
+
+[2012-04-04] v2.0.0
+
+* Released under the Apache 2 License.
+* Added: Generics support.
+* Fixed: Several small issues regarding value transformation.
+
+[2010-06-09] v1.1.1
+
+* Updated: SNMP4J to 1.11.1 and SNMP4J-Agent to 1.4.1.
+
+[2010-02-20] v1.1
+
+* Updated: SNMP4J to 1.11 and SNMP4J-Agent to 1.4.
+
+[2009-10-22] v1.0
+
+* Updated: SNMP4J to 1.10.2 and SNMP4J-Agent to 1.3.2.
+* Added: Maven build support.
+
+[2009-09-21] v1.0 beta-1
+
+* Added: multi-index / multi-key support through chaining
+  MBeanAttributeKeyProvider instances.
+* Fixed: jvmMemMgrPoolRelEntry was not linked to JMX
+  in JvmManagementMibInst.java.
+* Fixed: UnsupportedOperationException when using Long
+  keys in conjunction with MBeanAttributeKeyProvider.
+
+[2007-04-02] v1.0 alpha-0
+
+* Initial release: Use at your own risk!
+  Most JavaDoc is missing although the code should be
+  fairly complete. Mutable table model is not complete
+  yet, for example.
+

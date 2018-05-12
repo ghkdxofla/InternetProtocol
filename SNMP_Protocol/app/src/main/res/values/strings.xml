@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SNMP_Protocol</string>
+    <string name="snmp_set">snmpset</string>
+    <string name="snmp_walk">snmpwalk</string>
+    <string name="snmp_result">Result here</string>
+    <string name="snmp_get">snmpget</string>
+    <string name="snmp_func">OIDs, VALUEs, and functions...</string>
+</resources>

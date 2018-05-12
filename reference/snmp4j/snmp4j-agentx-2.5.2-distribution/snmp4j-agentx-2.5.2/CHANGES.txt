@@ -1,0 +1,339 @@
+
+CHANGE LOG OF SNMP4J-AgentX
+===========================
+
+[2016-09-12] v2.5.2
+(Requires SNMP4J-Agent 2.5.3 SNMP4J v2.5.2 or later)
+
+* Fixed [SFJ-129]: AgentXMaster GET BULK processing fails with general variable binding
+  error when running a GETBULK request on a sequence of registered scalars/single object nodes
+  that is as long (or longer) than max repetitions of the request and non-repeaters is greater
+  than one (AgentXPendingGet.java). SNMP4J-Agent 2.5.2 is need to fix a similar bug in
+  (SnmpRequest.java). The computation of the repetitions vb start index was
+  incorrect when a request is reprocessed (which happens with AgentX and single instance (scalar)
+  registrations quite often).
+  Timeout occurs when sending a GETBULK with non-repeaters
+  but zero max-repetitions and on-zero number of repetition sub-request OIDs
+  (e.g. 3 VBs and max-repetitions 0 and 2 non-repeaters).
+
+[2016-09-02] v2.5.1
+(Requires SNMP4J-Agent 2.5.0 SNMP4J v2.5.0 or later)
+
+* Fixed [SFJ-128]: SNMP Get Bulk fails with a genErr when SNMP4J-AgentX master agent
+  processes a GETBULK request that does not contain any repeaters (i.e. it could be
+  replaced by a GETNEXT) (AgentXQueue.java).
+
+[2016-06-12] v2.5.0
+(Requires SNMP4J-Agent 2.5.0 SNMP4J v2.5.0 or later)
+
+* Fixed: Added missing factory method in DummyBufferedMOMutableTableModel.
+* Added [SFJ-120]: Maven Central deployment support (refactored pom.xml).
+* Fixed: Removed a few unnecessary casts/improved generic usage.
+
+[2015-06-02] v2.2.2
+(Requires SNMP4J-Agent 2.3.3 SNMP4J v2.3.3 or later)
+* Fixed [SFJ-106]: AgentXProtocol did not decode/encode the length of OIDs with 128 or
+  more sub-identifiers correctly. Now the number of sub-identifiers is limited to 128
+  as required by RFC2741 §5.1.
+
+[2015-05-26] v2.2.1
+(Requires SNMP4J-Agent 2.3.3 SNMP4J v2.3.0 or later)
+* Fixed [SFJ-104]: Infinite loop in AgentXNode.next(SubRequest request) causes worker
+  thread to use max CPU kernel when a GETBULK PDU is processed that has no repeaters.
+
+[2014-05-12] v2.2.0
+(Requires SNMP4J-Agent 2.2.0 SNMP4J v2.3.0 or later)
+
+* Improved: Generics support (removed unchecked warnings).
+* Added: BufferedMOTableModel and BufferMOMutableTableModel for efficiently
+  implementing large virtual SNMP tables.
+
+[2014-02-14] v2.1.3
+(Requires SNMP4J-Agent 2.1.1 SNMP4J v2.2.5 or later)
+
+* Fixed [SFJ-87]: The engine ID applied to the AgentXMasterAgent constructors
+  was not set/used in the class itself (although it was used in the super class
+  and thus in all SNMP4J-Agent contexts. Nevertheless, the SNMP4J-AgentX
+  master agent example reported a wrong engine ID in its community MIB.
+
+[2014-02-11] v2.1.2
+(Requires SNMP4J-Agent 2.1.1 SNMP4J v2.2.5 or later)
+
+* Updated: SNMP4J to 2.2.5 and SNMP4J-Agent to 2.1.1 to fix a serious bug
+  in the AgentXCommandProcessor that could cause AgentX sub-requests to be
+  dropped before they are answered.
+  This bug was a regression in SNMP4J-Agent 2.0 and was fixed by
+  SNMP4J-Agent 2.1.1.
+
+[2014-01-07] v2.1.1
+(Requires SNMP4J-Agent 2.1.0 SNMP4J v2.2.3 or later)
+
+* Updated: License agreement.
+* Fixed: Release operation for index allocation.
+* Fixed: Added missing maven-plugin versions in pom.xml. Fixed repo URLs.
+* Fixed: Possibility of NPE in AgentXCommandProcessor.addRegion(..).
+* Fixed: [SFJ-65] AgentXSharedMOTableSupport not used/overwritten.
+* Fixed: [SFJ-46] SysOREntry was not initialized in master agent with subagent
+  data because of an incorrect ManagedObject search scope.
+
+[2012-04-03] v2.1.0
+(Requires SNMP4J-Agent 2.0.6 and SNMP4J 2.1.0)
+
+* Improved: [SJF-58] Shared table index allocation support.
+* Added: Relevant SNMP4J-AgentX MIBs.
+* Changed: Set volatile flag for AgentXSharedSession table to true.
+* Fixed: Priority for priorities > 127.
+
+[2011-11-23] v2.0.5
+(Requires SNMP4J-Agent 2.0.5 and SNMP4J 2.0.3)
+
+* No changes, updated base libraries only.
+
+[2011-09-01] v2.0.4
+(Requires SNMP4J-Agent 2.0.4 and SNMP4J 2.0.2)
+
+* Fixed [SFJ-50]: SysUpTimeImpl returns 1.000.000 times to high value
+  (regression in SNMP4J-AGENT 2.0.0).
+  Improved [SFJ-49]: TTLSTM and DefaultTcoTransportMapping on AIX did
+  caught in an endless loop because select() there returns a spurious
+  read indication while write data is pending in fact.
+
+[2011-09-01] v2.0.3
+(Requires SNMP4J-Agent 2.0.3 and SNMP4J 2.0.1)
+
+* Fixed [SFJ-48]: Inconsistent register/unregister behavior of MODefaultServer when
+  using zero length OctetString as context for register and unregister operation.
+  This was a regression in version 2.0.0.
+
+[2011-09-01] v2.0.2
+(Requires SNMP4J-Agent 2.0.2 and SNMP4J 2.0.1)
+
+* Fixed: [SFJ-47] Registration lookup in DefaultMOServer in some cases returned wrong
+  results for MOScalar and possibly also when using several contexts.
+
+[2011-08-23] v2.0.1
+(Requires SNMP4J-Agent 2.0.0 and SNMP4J 2.0.1)
+
+* Fixed: [SFJ-44] NullPointerException in master agent when starting
+  agent.
+
+[2011-08-22] v2.0.0
+(Requires SNMP4J-Agent 2.0.0 and SNMP4J 2.0.0)
+
+* Changed: Migrated code to use Java 1.6 Generics and System.nanoTime()
+  where appropriate.
+* Added: Support of RFC 5343 (context engine ID discovery),
+  RFC 5590 (Transport Subsystem for the SNMP),
+  RFC 5591 (Transport Security Model for the SNMP - TSM),
+  RFC 5953 (Transport Layer Security (TLS) Transport Model for the SNMP - TLSTM)
+
+[2011-01-03] v1.3.2
+(Requires SNMP4J-Agent 1.4.2 and SNMP4J 1.11.2)
+
+* Updated: SNMP4J to 1.11.2 and SNMP4J-Agent to 1.4.2,
+  log4j to 1.2.14.
+
+[2010-06-14] v1.3.1a
+(Requires SNMP4J-Agent 1.4.1 and SNMP4J 1.11.1)
+
+* Fixed: [SFJ-25] SNMP4J SFJ-25.SNMP4J-AgentX master
+  and subagent expects/returns response on CLEANUPSET
+  AgentX PDU which violates RFC 2741.
+* Fixed: [SFJ-24] High CPU usage in DefaultTcpTransportMapping
+  with some JREs (especially Java 1.5 but also some 1.6).
+* Fixed: [SFJ-26] SubAgentX.closeSession(..) does not sent
+  correct session ID to master agent. Instead 0 is sent.
+
+[2010-02-20] v1.3
+(Requires SNMP4J-Agent 1.4 and SNMP4J 1.11)
+
+* Updated: SNMP4J-Agent to 1.11 and SNMP4J-Agent
+  to 1.4.
+* Fixed: NullPointerException when closing
+  subagent session without getting a timely
+  response from the master.
+
+[2009-10-22] v1.2.2
+(Requires SNMP4J-Agent 1.3.2 and SNMP4J 1.10.2)
+
+* Updated: SNMP4J-Agent to 1.3.2 and SNMP4J-Agent
+  to 1.10.2.
+* Added: Maven build support.
+
+[2009-07-29] v1.2.1
+(Requires SNMP4J-Agent 1.3.1 and SNMP4J 1.10.1)
+
+* Fixed: [SFJ-6] AgentXProtocol.getVariableDataLength
+  method throws ClassCastException, if the incoming
+  Variable argument is a VariantVariable representing an
+  OctetString.
+* Removed: AgentXProtocol.getOctetStringLength(OctetString)
+  replaced by AgentXProtocol.getOctetStringLength(int).
+
+[2009-04-30] v1.2
+(Requires SNMP4J-Agent 1.3 and SNMP4J 1.10)
+
+* Improved: Wrapped Object.wait() call in
+  AgentX.java in loop as suggested/needed by
+  Java 1.6.
+
+[2008-12-15] v1.1.1
+(Requires SNMP4J-Agent 1.2.2 and SNMP4J 1.9.3d)
+
+* Updated: SNMP4J-Agent to 1.9.3d and SNMP4J-Agent
+  to 1.2.2.
+* Fixed: AgentXProtocol implementation could not
+  serialize non-default AbstractVariable instances.
+
+[2008-08-29] v1.1d
+(Requires SNMP4J-Agent 1.2.1d and SNMP4J 1.9.3c)
+
+* Updated: SNMP4J-Agent to 1.9.3d to improve
+  interoperability with AgentX TCP implementations
+  that do not align AgentX packets with TCP messages.
+
+[2008-08-19] v1.1c
+(Requires SNMP4J-Agent 1.2.1c and SNMP4J 1.9.3b)
+
+* Updated: SNMP4J-Agent to 1.9.3c.
+
+[2008-08-11] v1.1b
+(Requires SNMP4J-Agent 1.2.1b and SNMP4J 1.9.3b)
+
+* Updated: SNMP4J to 1.9.3b.
+
+[2008-07-22] v1.1a
+(Requires SNMP4J-Agent 1.2.1a and SNMP4J 1.9.3a)
+
+* Updated: SNMP4J to 1.9.3a.
+
+[2008-07-21] v1.1
+(Requires SNMP4J-Agent 1.2.1 and SNMP4J 1.9.3)
+
+* Updated: SNMP4J-Agent library to 1.2.1 and SNMP4J
+  to 1.9.3.
+* Added: RegistrationCallback for fine grained error
+  handling of AgentX subagent registration events/failures.
+* Improved: Shared table support, in particular index
+  allocation error handling.
+
+[2008-05-19] v1.1 RC1
+(Requires SNMP4J-Agent 1.2 and SNMP4J 1.9.1f)
+
+* Improved: Subagent object registration now correctly
+  filters out objects from servers which do not match
+  registration context.
+* Fixed: SubAgent.registerSharedTableRows could throw
+  ConcurrentModificationException.
+* Fixed: SubAgent reconnect did not re-add message
+  listener for AgentX connection.
+* Improved: AgentXMasterAgent now extends
+  AgentConfigManager instead deprecated BaseAgent.
+* Added: AgentX session can now be closed by setting
+  its admin status to down(2) in the AGENTX-MIB.
+* Added: Version information and check in
+  org.snmp4j.agent.agentx.version.VersionInfo.
+* Improved: Removed unnecessary anonymous class
+  definitions.
+
+[2007-07-25] v1.0.1
+(Requires SNMP4J-Agent 1.1.4 and SNMP4J 1.8.2)
+
+* Updated: SNMP4J-Agent library to 1.1.4.
+* Improved: Handling of parse errors with new
+  AgentXCommandProcessor.setMaxParseErrors(int) method.
+* Improved: Implemented logging TODOs.
+
+[2007-05-31] v1.0d
+(Requires SNMP4J-Agent 1.1.3 and SNMP4J 1.8.2)
+
+* Updated: SNMP4J-Agent library to 1.1.3.
+
+[2007-05-04] v1.0c
+(Requires SNMP4J-Agent 1.1.2 and SNMP4J 1.8.2)
+
+* Updated: SNMP4J and SNMP4J-Agent libraries.
+
+[2007-04-23] v1.0b
+(Requires SNMP4J-Agent 1.1.1a and SNMP4J 1.8.1a)
+
+* Updated: SNMP4J and SNMP4J-Agent libraries.
+
+[2007-04-02] v1.0a
+(Requires SNMP4J-Agent 1.1.1 and SNMP4J 1.8.1)
+
+* Fixed: Resource leak in AgentXSubagent.connect(..)
+  when failing because of an IOException.
+* Fixed: AgentXCommandProcesser.notify(..).
+
+[2007-03-12] v1.0
+(Requires SNMP4J-Agent 1.1 and SNMP4J 1.8.1)
+
+* Fixed: Issue with unremoved registrations (index and
+  region) in master agent after sub-agent disconnect.
+* Fixed: NPE in deallocateIndex(..) of
+  AgentXSharedMOTableSupport.
+* Fixed: Unknown registration warning reported by
+  master agent on single registration removal by
+  subagent.
+* Fixed: InvalidArgumentException when trying to
+  unregister a previously registered row.
+* Fixed: AgentXSubagent.removeMOServer did actually
+  add the server instead removing it.
+* Fixed: Resource cleanup in AgentXSubagent.connect(..).
+
+[2007-02-21] v1.0 RC2
+(Requires SNMP4J-Agent 1.1 RC3 and SNMP4J 1.8)
+
+* Fixed: Several issues regarding sub-agent index
+  allocation (reported by Peder Toftegaard Olsen).
+* Changed: Queries to lookup ManagedObjects for
+  an AgentX subagent now reports whether the query
+  is performed to change the matched ManagedObject
+  (commit or undo) or not.
+
+[2007-02-05] v1.0 RC1
+(Requires SNMP4J-Agent 1.1 and SNMP4J 1.8)
+
+* Fixed: RemoveAgentCapsPDU has not been processed by
+  master agent.
+* Improved: Master AgentX request processing by removing
+  central synchronization which could have caused
+  timeouts on sub-agent requests.
+
+[2007-01-08] v1.0 beta-2
+(Requires SNMP4J-Agent 1.1 and SNMP4J 1.8)
+
+* Changed: Made necessary changes for SNMP4J 1.8.
+* Added: Vetoable events for master agent changes.
+* Added: Master agent may be configured to accept
+  only connections from loopback device.
+* Fixed: Several issues regarding decoding of
+  large 32bit unsigned integer values.
+* Fixed: Connection loss detection and handling
+  in master and subagent.
+* Fixed: Dangling registration causing duplicate
+  region registration errors on sub-agent reconnect.
+
+[2006-09-30] v1.0 beta-1
+(Requires SNMP4J-Agent 1.0.1 and SNMP4J 1.7.6)
+
+* Release Comment: There are still some areas which need
+  more testing (i.e. shared table), but the API would
+  not change significantly until 1.0 release in Q4/2006.
+* Fixed: Subagent did not ignore lower bound included flag
+  for GET requests (this is needed for interoperability
+  with NET-SNMP master agent).
+* Fixed: SET requests were not commited properly by sub-agent
+  if SNMP4J-Agent 1.0 or later had been used.
+
+[2006-06-16] v1.0 alpha-0
+
+* Initial release: Use at your own risk! There are many
+  untested areas in the code. Most JavaDoc is missing
+  although the code should be fairly complete. All AgentX
+  features should be supported, including shared table,
+  context, and full GETBULK support.
+  The API supports master and sub-agents using TCP
+  connections.
+
