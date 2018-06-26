@@ -25,10 +25,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/snmp_set"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText2"
         app:layout_constraintEnd_toStartOf="@+id/editText2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="51dp" />
 
     <EditText
         android:id="@+id/editText"
